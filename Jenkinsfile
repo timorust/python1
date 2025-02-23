@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                checkout scm
+                // Clone the specific repository
+                git url: 'https://github.com/berezovsky13/python.git', branch: 'main'
             }
         }
         stage('Docker Build & Tag') {
@@ -41,7 +42,7 @@ pipeline {
     post {
         always {
             // Optionally clean up: stop the container if it's still running
-            sh "docker stop devops-app || true"
+            sh "docker stop devops-python-app-container || true"
         }
     }
 }
